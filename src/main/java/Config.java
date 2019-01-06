@@ -1,4 +1,4 @@
-import org.apache.commons.cli;
+import org.apache.commons.cli.*;
 
 
 public class Config {
@@ -28,7 +28,7 @@ public class Config {
         countInsertionThreads = 1;
     }
 
-    public Options setOptions(String... args) {
+    public Options setOptions(String... args) throws ParseException {
         options = new Options();
 
         options.addOption(OptionBuilder.withArgName("host")
@@ -85,10 +85,12 @@ public class Config {
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmdLine = parser.parse(options, args);
+
+        return options;
     }
 
     public void setdbHost(CommandLine cmdLine) {
-        String dbHostOption = cmdLine.getOptionalValue("dbHost");
+        String dbHostOption = cmdLine.getOptionValue("dbHost");
 
         if (dbHostOption != null) {
             dbHost = dbHostOption;
@@ -96,7 +98,7 @@ public class Config {
     }
 
     public void setdbPort(CommandLine cmdLine) {
-        String dbPortOption = cmdLine.getOptionalValue("dbPort");
+        String dbPortOption = cmdLine.getOptionValue("dbPort");
 
         if (dbPortOption != null) {
             dbPort = dbPortOption;
@@ -104,7 +106,7 @@ public class Config {
     }
 
     public void setdbName(CommandLine cmdLine) {
-        String dbNameOption = cmdLine.getOptionalValue("dbName");
+        String dbNameOption = cmdLine.getOptionValue("dbName");
 
         if (dbNameOption != null) {
             dbName = dbNameOption;
@@ -113,7 +115,7 @@ public class Config {
 
     public void setAccessCredentialUsername(CommandLine cmdLine) {
         String accessCredentialUsernameOption = 
-            cmdLine.getOptionalValue("accessCredentialUsername");
+            cmdLine.getOptionValue("accessCredentialUsername");
 
         if (accessCredentialUsernameOption != null) {
             accessCredentialUsername = accessCredentialUsernameOption;
@@ -122,7 +124,7 @@ public class Config {
 
     public void setAccessCredentialPassword(CommandLine cmdLine) {
         String accessCredentialPasswordOption = 
-            cmdLine.getOptionalValue("accessCredentialPassword");
+            cmdLine.getOptionValue("accessCredentialPassword");
 
         if (accessCredentialPasswordOption != null) {
             accessCredentialPassword = accessCredentialPasswordOption;
@@ -130,7 +132,7 @@ public class Config {
     }
 
     public void setOutputFileName(CommandLine cmdLine) {
-        String outputFileNameOption = cmdLine.getOptionalValue("outputFileName");
+        String outputFileNameOption = cmdLine.getOptionValue("outputFileName");
 
         if (outputFileNameOption != null) {
             outputFileName = outputFileNameOption;
@@ -138,26 +140,26 @@ public class Config {
     }
 
     public void setPayloadSize(CommandLine cmdLine) {
-        int payloadSizeOption = cmdLine.getOptionalValue("payloadSize");
+        String payloadSizeOption = cmdLine.getOptionValue("payloadSize");
 
         if (payloadSizeOption != null) {
-            payloadSize = payloadSizeOption;
+            payloadSize = Integer.parseInt(payloadSizeOption);
         }
     }
 
     public void setCountInsertOperations(CommandLine cmdLine) {
-        int countInsertOperationsOption = cmdLine.getOptionalValue("countInsertOperations");
+        String countInsertOperationsOption = cmdLine.getOptionValue("countInsertOperations");
 
         if (countInsertOperationsOption != null) {
-            countInsertOperations = countInsertOperationsOption;
+            countInsertOperations = Integer.parseInt(countInsertOperationsOption);
         }
     }
 
     public void setCountInsertionThreads(CommandLine cmdLine) {
-        int countInsertionThreadsOption = cmdLine.getOptionalValue("countInsertionThreads");
+        String countInsertionThreadsOption = cmdLine.getOptionValue("countInsertionThreads");
 
         if (countInsertionThreadsOption != null) {
-            countInsertionThreads = countInsertionThreadsOption;
+            countInsertionThreads = Integer.parseInt(countInsertionThreadsOption);
         }
     }
 
