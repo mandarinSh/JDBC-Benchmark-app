@@ -1,3 +1,5 @@
+import org.apache.commons.cli.*;
+
 
 public class Config {
     private String dbHost;
@@ -7,10 +9,10 @@ public class Config {
     private String accessCredentialPassword;
     private String tableName;
     private String outputFileName;
-    private Integer payloadSize;
-    private Integer countInsertOperations;
-    private Integer countInsertionThreads;
+    private int payloadSize;
+    private int countInsertOperations;
+    private int countInsertionThreads;
 
-    
+    Options options = new Options();
 
 }
