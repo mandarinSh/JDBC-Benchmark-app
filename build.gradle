@@ -7,10 +7,18 @@ buildscript {
     }
 
     dependencies {
-        compile 'mysql:mysql-connector-java:8.0.13'
-        compile 'commons-cli:commons-cli:1.4'
-        classpath group: 'com.bmuschko', name: 'gradle-docker-plugin', version: '4.0.5'
+        classpath 'com.bmuschko:gradle-docker-plugin:4.0.5'
     }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'mysql:mysql-connector-java:8.0.13'
+    compile 'commons-cli:commons-cli:1.4'
 }
 
 version '0.1'
