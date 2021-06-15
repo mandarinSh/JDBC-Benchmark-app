@@ -35,6 +35,9 @@ public class Main {
                 System.out.println("selected: " + key + " " + value);
             }
 
+            Config config = new Config();
+            config.setOptions(args);
+            
             // statement.executeUpdate(query);
 
             connection.close();

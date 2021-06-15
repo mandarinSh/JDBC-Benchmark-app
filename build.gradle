@@ -1,13 +1,52 @@
-plugins {
-    id 'java'
+apply plugin: 'java'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:4.0.5'
+    }
 }
 
 repositories {
     mavenLocal()
     mavenCentral()
+      jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2"
+        }
 }
 
 dependencies {
-    compile group: 'mysql', name:'mysql-connector-java', version:'8.0.13'
-    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    compile 'mysql:mysql-connector-java:8.0.13'
+    compile 'commons-cli:commons-cli:1.4'
+}
+
+version '0.1'
+
+// Docker tasks —-------------------------
+apply plugin: 'com.bmuschko.docker-remote-api'
+apply plugin: 'com.bmuschko.docker-java-application'
+
+import com.bmuschko.gradle.docker.tasks.image.*
+import com.bmuschko.gradle.docker.tasks.container.*
+
+task buildImage(type: DockerBuildImage, dependsOn: build) {
+    inputDir = rootProject.projectDir
+    dockerFile = project.file("docker${File.separator}Dockerfile")
+    imageId = "mandarinka/benchmark"
+    tags = ["mandarinka/benchmark:0.1", "mandarinka/benchmark:latest"]
+}
+
+// task tagImage(type: DockerTagImage, dependsOn: buildImage) {
+//     targetImageId { buildImage.getImageId() }
+//     tag = "benchmark"
+// }
+
+task pushImage(type: DockerPushImage, dependsOn: buildImage) {
+    imageName = "mandarinka/benchmark"
+    tag = "0.1"
 }
